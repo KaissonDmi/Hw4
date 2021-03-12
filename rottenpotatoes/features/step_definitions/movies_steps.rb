@@ -23,3 +23,15 @@ Then /I should see all the movies/ do
     step %{I should see "#{movie.title}"}
   end
 end
+
+Then /the director of "(.*)" should be "(.*)"/ do |tit, dir|
+    num = 0
+    Movie.all.each do |movie|
+      if tit == movie.title
+        num = movie.id
+        break
+      end
+    end
+    
+    expect(dir == Movie.find(num).director)
+end
